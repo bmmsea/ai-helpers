@@ -5,9 +5,8 @@
 Generate an image locally when running automatic1111 
 API Docs:  https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/API
 
-The API is not enabled by default, and must be enabled in the command line arguments
-
-This is a work in progress.  Future iterations will be to turn this into an AutoGen skill
+The API is not enabled by default in Automatic1111, and must be enabled in the command line arguments
+  in webui-user.sh -> export COMMANDLINE_ARGS="--api"
 """
 from pathlib import Path
 from PIL import Image
@@ -30,17 +29,14 @@ def generate_sd_images(query: str, image_size: str = "1024x1024") -> List[str]:
     :param image_size: The size of the image to be generated. (default is "1024x1024")
     :return: A list of filenames for the saved images.
     """
-    # Split the string at "x"
-    #   Keeping the input format consistent with the default generate_images
+    # Split the image size string at "x"
+    #   Keeping the input format consistent with the default generate_and_save_images
     parts = image_size.split("x")
-
-    # Assign the left part to width and the right part to height
     image_width = parts[0]
     image_height = parts[1]
 
+    # list of file paths returned to AutoGen
     saved_files = []
-
-    # "prompt": "cute cudddly baby sloth, cgi cartoon, pixar style, big eyes, highly detailed fur",
 
     payload = {
         "prompt": query,
@@ -60,8 +56,6 @@ def generate_sd_images(query: str, image_size: str = "1024x1024") -> List[str]:
 
         # using the seed in the file name to allow for multiple images
         file_name = f"{seed}_output.png"
-        
-        # the path of the script being run
         file_path = Path(file_name)
 
         with Image.open(io.BytesIO(base64.b64decode(r['images'][0]))) as image:
@@ -75,7 +69,7 @@ def generate_sd_images(query: str, image_size: str = "1024x1024") -> List[str]:
     return saved_files
 
 # Example usage of the function:
-img_list = generate_sd_images("cute cudddly baby sloth, cgi cartoon, pixar style, big eyes, highly detailed fur", "512x512")
-print(img_list)
+#img_list = generate_sd_images("cute cudddly baby sloth, cgi cartoon, big eyes, highly detailed fur", "512x512")
+#print(img_list)
 
 #### End of generate_sd_images ####
