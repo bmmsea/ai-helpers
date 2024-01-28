@@ -1,0 +1,5 @@
+prompt,negative_prompt,width,height,steps,seed
+"cute baby sloth, cartoon style","",512,512,20,-1
+"cute baby otter, watercolor style","angry",512,512,20,-1
+"cute baby capybara, cartoon style","",512,512,10,1234567890
+"cute baby capybara, cartoon style","",512,512,20,1234567890
