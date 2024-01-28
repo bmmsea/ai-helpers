@@ -4,6 +4,11 @@ API Docs:  https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/API
 
 The API is not enabled by default in Automatic1111, and must be enabled in the command line arguments
   in webui-user.sh -> export COMMANDLINE_ARGS="--api"
+
+CSV file headers will be used as keys, and row contents for values in the JSON payload to the /sdapi/v2/txt2img API
+  * For a random seed, use -1
+  * Absence of a column in the CSV file will omit it from the payload and use the server's last values
+  * Blank values will result in a failed request with a 422 response code
 """
 
 from pathlib import Path
@@ -22,7 +27,7 @@ base_url = "http://127.0.0.1:7860"
 csv_file = 'image_batch.csv'
 
 # edit to use a path other than the script execution directory
-save_path = "/mnt/d/art/art-output"
+save_path = "/tmp"
 #save_path = None
 
 
