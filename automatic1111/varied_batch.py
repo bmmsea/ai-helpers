@@ -1,14 +1,60 @@
+"""
+Generate a CSV file for batch image creation that varies in a controlled way.
+"""
+
 import csv
 import random
 
-prompts = ["pic of a sexy female model", "pic of a beautiful landscape", "pic of a futuristic city", "pic of a medieval castle", "pic of a cute puppy"]
-negative_prompts = ["unattractive, fat, deformed, bad hands, asian", "dull, boring, flat, monochrome", "old, ruined, dirty, polluted", "modern, small, simple, bright", "ugly, scary, big, dirty"]
+# CSV file to use to output prompt batch
+out_csv = 'image_batch.csv'
 
-with open('image_generation_prompts.csv', 'w', newline='') as file:
+# number of image prompts to generate
+total_images = 100
+
+# base character information
+character_prompts = [
+    "alice in wonderland",
+    "alice, through the looking glass"
+]
+# adjectives to describe the character
+adj_prompts = [
+    "heroic",
+    "fierce",
+    "curious"
+]
+# information about the scene or setting
+scene_prompts = [
+    "in armor, holding sword, fighting a dragon",
+    "lost in the woods",
+    "tea party with mad hatter",
+    "captured by the queen of hearts",
+    "meeting the cheshire cat"
+]
+# include this in every prompt
+always_prompt = 'highly detailed, 4k, colorful, fantasy style'
+
+# rotate the negative to vary output, with consistent themes
+negative_prompts = [
+    "unattractive, deformed", 
+    "dirty, misshapen"
+]
+# add to every negative prompt
+always_negative = 'nsfw'
+
+# set of step values. single value works
+steps = [20, 25, 30]
+
+with open(out_csv, 'w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(["prompt", "negative_prompt", "width", "height", "steps", "seed", "restore_faces", "face_restoration"])
     
-    for _ in range(100):
-        prompt = random.choice(prompts)
-        negative_prompt = random.choice(negative_prompts)
-        writer.writerow([prompt, negative_prompt, 512, 768, 25, -1, True, "GFPGAN"])
+    for _ in range(total_images):
+        # leaving any blank will result in extra commas
+        prompt = f"{random.choice(character_prompts)}, {random.choice(adj_prompts)}, {random.choice(scene_prompts)}, {always_prompt}"
+        negative_prompt = f"{random.choice(negative_prompts)}, {always_negative}"
+        
+        step_count = random.choice(steps)
+        
+        # image size can be changed here
+        writer.writerow([prompt, negative_prompt, 512, 768, step_count, -1, True, "GFPGAN"])
+        
