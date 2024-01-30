@@ -22,20 +22,22 @@ def get_image_files(directory):
 def main():
     # Get the list of image files in the directory
     image_files = get_image_files(image_directory)
+    
+    if 'current_image_index' not in st.session_state:
+        st.session_state['current_image_index'] = 0
 
     # Initialize the index of the currently displayed image
-    current_image_index = st.session_state.get('current_image_index', 0)
+    current_image_index = st.session_state.current_image_index
  
-    st.image(image_files[current_image_index])
-    st.write(image_files[current_image_index])
-
     # Create next and back buttons
-    # still buggy at beginning and end, requiring two button clicks
     col1, col2, col3 = st.columns(3)
     if col1.button("Back"):
         current_image_index = max(0, current_image_index - 1)
     if col3.button("Next"):
         current_image_index = min(len(image_files) - 1, current_image_index + 1)
+ 
+    st.image(image_files[current_image_index])
+    st.write(image_files[current_image_index])
 
     # Update the displayed image based on the button clicks
     st.session_state['current_image_index'] = current_image_index
