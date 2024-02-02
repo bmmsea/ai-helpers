@@ -38,3 +38,6 @@ venv.bak/
 # Jupyter Notebook
 .ipynb_checkpoints
 
+# testing content
+rag-sample/docs/
+rag-sampl/embeddings/
