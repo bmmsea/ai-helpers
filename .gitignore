@@ -41,3 +41,6 @@ venv.bak/
 # testing content
 rag-sample/docs/
 rag-sampl/embeddings/
+
+# codegen files
+.aider*
