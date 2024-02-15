@@ -20,4 +20,4 @@ if __name__ == '__main__':
     #print(top_videos)
     
     for index, row in top_videos.iterrows():
-        print(row['iframe_src'])
+        print(row['iframe_src'].replace('/embed/', '/view_video.php?viewkey='))
