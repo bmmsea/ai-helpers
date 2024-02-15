@@ -28,6 +28,7 @@ MANIFEST
 
 # Environments
 .env
+.venv/
 .venv
 env/
 venv/
@@ -41,6 +42,17 @@ venv.bak/
 # testing content
 rag-sample/docs/
 rag-sampl/embeddings/
+*.bin
+*.sqlite3
 
 # codegen files
 .aider*
+
+# documents and embeddings from scripts
+chroma-embeddings/embeddings/
+chroma-embeddings/docs/raw/
+chroma-embeddings/docs/processed/
+
+# in progress projects not ready to share
+ph/
+rag-sample/
