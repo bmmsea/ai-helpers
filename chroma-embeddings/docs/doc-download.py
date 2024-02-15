@@ -10,7 +10,7 @@ def download_documents():
         url = url.strip()
         response = requests.get(url)
         parsed_url = urlparse(url)
-        filename = f"docs/raw/{parsed_url.netloc}{parsed_url.path}".replace('/', '_')
+        filename = "docs/raw/" + (parsed_url.netloc + parsed_url.path).replace('/', '_')
 
         with open(filename, 'wb') as output_file:
             output_file.write(response.content)
