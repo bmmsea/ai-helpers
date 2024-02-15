@@ -4,7 +4,7 @@ import pandas as pd
 import csv, gzip, re, sys, time, tqdm
 
 stat_year = '2023'
-parquet_file = f"big.parquet/year={stat_year}/*"
+parquet_file = f"big.parquet/year={stat_year}"
 start_time = time.time()
 
 def load_data():
@@ -17,5 +17,7 @@ columns = ['iframe', 'main_auth_thumbnail', 'title', 'tags', 'categories', 'perf
 if __name__ == '__main__':
     df = load_data()
     top_videos = df.nlargest(10, 'views')
+    #print(top_videos)
+    
     for index, row in top_videos.iterrows():
-        print(row['iframe'])
+        print(row['iframe_src'])
