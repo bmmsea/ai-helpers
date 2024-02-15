@@ -19,6 +19,7 @@ def load_input_urls(filename):
 
     for url in urls:
         url = url.strip()
+        urls.append(url)
         
         parsed_url = urlparse(url)
         filename = "docs/raw/" + (parsed_url.netloc + parsed_url.path).replace('/', '_')
