@@ -8,7 +8,12 @@ input_file = 'input-urls.txt'
 url_list = []
 
 def lang_load(urls):
-    """ Use LangChain loader to download documents """
+    """ 
+    Use LangChain loader to download documents.
+    
+    Input: urls - a list of URLs to download documents from.
+    Output: data - a list of downloaded documents.
+    """
     loader = UnstructuredURLLoader(urls=urls)
     data = loader.load()
     
@@ -16,7 +21,15 @@ def lang_load(urls):
 
 
 def save_file(url, contents):
-    """ Save a file with the modified URL as the name and with doc contents as a JSON object """
+    """ 
+    Save a file with the modified URL as the name and with doc contents as a JSON object.
+    
+    Input: 
+    url - the URL of the document.
+    contents - the contents of the document.
+    
+    Output: None. A file is saved in the 'raw' directory.
+    """
             
     parsed_url = urlparse(url)
     filepath = "raw/" + (parsed_url.netloc + parsed_url.path).replace('/', '_') + ".json"
@@ -26,7 +39,12 @@ def save_file(url, contents):
 
 
 def load_input_urls(filename):
-    """ Load input URLs to download from a TXT file """
+    """ 
+    Load input URLs to download from a TXT file.
+    
+    Input: filename - the name of the TXT file containing the URLs.
+    Output: None. The URLs are added to the global 'url_list'.
+    """
     
     with open(filename, 'r') as file:
         urls = file.readlines()
@@ -46,3 +64,7 @@ if __name__ == "__main__":
         save_file(doc.metadata['source'], doc.page_content)
 
 
+"""
+This script downloads documents from a list of URLs using the LangChain loader.
+It then saves each document as a JSON object, with the URL as the name of the file.
+"""
