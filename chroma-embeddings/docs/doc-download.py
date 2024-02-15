@@ -1,3 +1,9 @@
+"""
+This script downloads documents from a list of URLs using the LangChain loader.
+It then saves each document as a JSON object, with the URL as the name of the file.
+
+TODO: use tqdm progress bar as documents are being downloaded, rather than just the loader
+"""
 
 import json
 
@@ -64,7 +70,3 @@ if __name__ == "__main__":
         save_file(doc.metadata['source'], doc.page_content)
 
 
-"""
-This script downloads documents from a list of URLs using the LangChain loader.
-It then saves each document as a JSON object, with the URL as the name of the file.
-"""
