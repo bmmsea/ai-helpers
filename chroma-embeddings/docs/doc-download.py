@@ -3,31 +3,44 @@ from urllib.parse import urlparse
 from langchain_community.document_loaders import UnstructuredURLLoader
 
 input_file = 'input-urls.txt'
-urls = []
+url_list = []
 
-def lang_load():
+def lang_load(urls):
+    """ Use LangChain loader to download documents """
     loader = UnstructuredURLLoader(urls=urls)
     data = loader.load()
+    
+    return data
 
-def save_file(filepath, contents):
-    with open(filename, 'wb') as output_file:
-        output_file.write(response.content)
+
+def save_file(url, contents):
+    """ Save a file with the modified URL as the name and with doc contents """
+            
+    parsed_url = urlparse(url)
+    filepath = "raw/" + (parsed_url.netloc + parsed_url.path).replace('/', '_')
+    
+    with open(filepath, 'w') as output_file:
+        output_file.write(contents)
+
 
 def load_input_urls(filename):
+    """ Load input URLs to download from a TXT file """
+    
     with open(filename, 'r') as file:
         urls = file.readlines()
 
     for url in urls:
         url = url.strip()
-        urls.append(url)
-        
-        parsed_url = urlparse(url)
-        filename = "docs/raw/" + (parsed_url.netloc + parsed_url.path).replace('/', '_')
-        
-        print(filename)
-        
+        url_list.append(url)
 
 
 
 if __name__ == "__main__":
     load_input_urls(input_file)
+    doc_contents = lang_load(url_list)
+    
+    for doc in doc_contents:
+        print(doc.metadata['source'])
+        save_file(doc.metadata['source'], doc.page_content)
+
+
