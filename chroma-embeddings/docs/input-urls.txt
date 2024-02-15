@@ -1,0 +1,2 @@
+https://en.wikipedia.org/wiki/LangChain
+https://python.langchain.com/docs/integrations/document_transformers/beautiful_soup
