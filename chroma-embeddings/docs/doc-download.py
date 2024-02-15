@@ -1,5 +1,6 @@
 
 import json
+
 from urllib.parse import urlparse
 from langchain_community.document_loaders import UnstructuredURLLoader
 
@@ -18,7 +19,7 @@ def save_file(url, contents):
     """ Save a file with the modified URL as the name and with doc contents as a JSON object """
             
     parsed_url = urlparse(url)
-    filepath = "raw/" + (parsed_url.netloc + parsed_url.path).replace('/', '_')
+    filepath = "raw/" + (parsed_url.netloc + parsed_url.path).replace('/', '_') + ".json"
     
     with open(filepath, 'w') as output_file:
         json.dump({'url': url, 'contents': contents}, output_file)
